@@ -10,23 +10,21 @@ Library that enables a convenient way to enable or disable features in a microse
  
 2. Create a class that extends play.api.inject.Module with FeatureSwitchRegistry and register your feature switches
 
-
-     @Singleton
-     class YourRegister extends Module with FeatureSwitchRegistry {
-     
-       val switches = Set(FeatureSwitch1, FeatureSwitch2)
-     
-       override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = {
-         Seq(
-           bind[FeatureSwitchRegistry].to(this).eagerly()
-         )
-       }
-     }
-     
+         @Singleton
+         class YourRegister extends Module with FeatureSwitchRegistry {
+         
+           val switches = Set(FeatureSwitch1, FeatureSwitch2)
+         
+           override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = {
+             Seq(
+               bind[FeatureSwitchRegistry].to(this).eagerly()
+             )
+           }
+         }
 
 3. Enable the module you just created
 
-        play.modules.enabled += uk.gov.hmrc.<YOUR PACKAGE>.
+        play.modules.enabled += uk.gov.hmrc.<YOUR PACKAGE>.YourRegister
     
 4. If a backend service, enable a route to manage your feature switches
     
